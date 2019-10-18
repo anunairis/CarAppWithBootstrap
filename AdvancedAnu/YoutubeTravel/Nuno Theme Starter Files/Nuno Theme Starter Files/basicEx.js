@@ -23,7 +23,6 @@ class Vehicle {
   <div class="d-flex wrap-nowrap justify-content-between"><p class="card-text">Fuel Type:</p><p class = "ts"> ${this.fuel} </p></div>
   <div class="d-flex wrap-nowrap justify-content-between"><p class="card-text">Construction Year:</p><p class = "ts"> ${this.prodYear}</p></div>
 `;
-        console.log(writeToRow);
         return writeToRow;
     }
 }
@@ -33,7 +32,7 @@ class Motor extends Vehicle {
         this.hp = hp;
     }
     priceMotor() {
-        let priceMotor = Math.round(super.price() * (this.hp / 30));
+        let priceMotor = Math.round(super.price() * (this.hp / 390));
         return priceMotor;
     }
 }
@@ -45,15 +44,20 @@ let x3 = new Vehicle("Volkswagen", "Passat", 55000, 5, "Petrol", 2019);
 document.getElementById("volks").innerHTML = x3.car();
 let x4 = new Motor("Vronn", "Vivaro", 88888, 1, "Petrol", 2012, 80);
 document.getElementById("suzuki").innerHTML = x4.car();
-x1.car();
-x2.car();
-x3.car();
-x4.car();
 var array = [x1, x2, x3, x4];
 function showPrice(i, obj) {
     document.getElementsByClassName("Preis")[i].innerHTML = obj.price() + " EUR";
 }
+function displayMotorPrice(obj) {
+    document.getElementById("PreisShowPreisMotor").innerHTML = obj.priceMotor() + " EUR";
+}
 var btns = document.getElementsByClassName("btn");
 for (let i in btns) {
-    btns[i].addEventListener("click", () => { showPrice(i, array[i]); });
+    if (i == "3") {
+        btns[i].addEventListener("click", () => { displayMotorPrice(array[i]); });
+    }
+    else {
+        btns[i].addEventListener("click", () => { showPrice(i, array[i]); });
+    }
 }
+//   document.getElementById("PreisMotor").addEventListener("click",()=>{displayMotorPrice(x4)});
